@@ -44,7 +44,6 @@ public class SubscriptionLoaderTests extends SubscriptionLoaderBase {
 
         LoadReport loadReport = eventHandler.handle(buildRequest(testTime), buildContext());
 
-        assertSubscriptionIsAddedToQueue();
         assertReportIsUpdatedCorrectly(loadReport);
     }
 
@@ -54,7 +53,6 @@ public class SubscriptionLoaderTests extends SubscriptionLoaderBase {
 
         LoadReport loadReport = eventHandler.handle(buildRequest(testTime), buildContext());
 
-        assertSubscriptionIsAddedToQueue();
         assertReportIsUpdatedCorrectly(loadReport);
     }
 
@@ -64,20 +62,7 @@ public class SubscriptionLoaderTests extends SubscriptionLoaderBase {
 
         LoadReport loadReport = eventHandler.handle(buildRequest(testTime), buildContext());
 
-        assertSubscriptionIsAddedToQueue();
         assertReportIsUpdatedCorrectly(loadReport);
-    }
-
-    private void assertSubscriptionIsAddedToQueue() throws java.io.IOException {
-        Subscription subscription = getQueuedSubscription();
-
-        assertEquals(subscriptionItem.getVrm(), subscription.getVrm());
-        assertEquals(subscriptionItem.getEmail(), subscription.getContactDetail().getValue());
-        assertEquals(subscriptionItem.getContactType().getValue(), subscription.getContactDetail().getContactType().getValue());
-        assertEquals(subscriptionItem.getVehicleType(), subscription.getVehicleType());
-        assertEquals(subscriptionItem.getMotTestNumber(), subscription.getMotTestNumber());
-        assertEquals(subscriptionItem.getMotDueDate(), subscription.getMotDueDate());
-        assertEquals(subscriptionItem.getId(), subscription.getId());
     }
 
     private void assertReportIsUpdatedCorrectly(LoadReport loadReport) {
