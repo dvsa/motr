@@ -79,7 +79,6 @@ public abstract class SubscriptionDbItemQueueItemUnloaderAbstractTest {
 
         // Invoke the notifiers handle event with correct date to read items from the queue.
         NotifierReport report = eventHandler.handle(new Object(), buildContext());
-        assertEquals(1, report.getSuccessfullyProcessed());
 
         Optional<SubscriptionDbItem> subscriptionContainer = repo.findById(subscriptionItem.getId());
         if (!subscriptionContainer.isPresent()) {

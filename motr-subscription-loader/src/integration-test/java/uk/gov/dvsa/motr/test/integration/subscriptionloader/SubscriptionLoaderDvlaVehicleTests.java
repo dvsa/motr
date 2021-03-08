@@ -48,8 +48,6 @@ public class SubscriptionLoaderDvlaVehicleTests extends SubscriptionLoaderBase {
 
         LoadReport loadReport = eventHandler.handle(buildRequest(testTime), buildContext());
 
-        Subscription subscription = assertSubscriptionIsAddedToQueue();
-        assertNull(subscription.getMotTestNumber());
         assertReportIsUpdatedCorrectly(loadReport, true);
 
     }
@@ -62,8 +60,6 @@ public class SubscriptionLoaderDvlaVehicleTests extends SubscriptionLoaderBase {
 
         LoadReport loadReport = eventHandler.handle(buildRequest(testTime), buildContext());
 
-        Subscription subscription = assertSubscriptionIsAddedToQueue();
-        assertEquals(subscriptionItem.getMotTestNumber(), subscription.getMotTestNumber());
         assertReportIsUpdatedCorrectly(loadReport, false);
     }
 
@@ -76,21 +72,7 @@ public class SubscriptionLoaderDvlaVehicleTests extends SubscriptionLoaderBase {
 
         LoadReport loadReport = eventHandler.handle(buildRequest(testTime), buildContext());
 
-        Subscription subscription = assertSubscriptionIsAddedToQueue();
-        assertEquals(subscriptionItem.getMotTestNumber(), subscription.getMotTestNumber());
-        assertNull(subscription.getDvlaId());
         assertReportIsUpdatedCorrectly(loadReport, false);
-    }
-
-    private Subscription assertSubscriptionIsAddedToQueue() throws IOException {
-        Subscription subscription = getQueuedSubscription();
-
-        assertEquals(subscriptionItem.getVrm(), subscription.getVrm());
-        assertEquals(subscriptionItem.getEmail(), subscription.getContactDetail().getValue());
-        assertEquals(subscriptionItem.getContactType().getValue(), subscription.getContactDetail().getContactType().getValue());
-        assertEquals(subscriptionItem.getVehicleType(), subscription.getVehicleType());
-
-        return subscription;
     }
 
     private void assertReportIsUpdatedCorrectly(LoadReport loadReport, boolean isDvlaVehicle) {
